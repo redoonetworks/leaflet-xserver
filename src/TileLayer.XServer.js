@@ -145,22 +145,27 @@ L.TileLayer.XServer = L.TileLayer.extend({
 		var description = '';
 		var isFirstLayer = true;
 
-		for (var layer in found) {
-			if (isFirstLayer) {
-				isFirstLayer = false;
-			} else {
-				description = description + '<br>';
+		if(typeof this.options.onCreateFeatureDescription === 'undefined') {
+			for (var layer in found) {
+				if (isFirstLayer) {
+					isFirstLayer = false;
+				} else {
+					description = description + '<br>';
+				}
+
+				for (var i = 0; i < found[layer].attributes.length; i++) {
+					var attribute = found[layer].attributes[i];
+					description = description.concat(
+						attribute.key.replace(/[A-Z]/g, ' $&') + ': ' +
+						attribute.value.replace('_', ' ') + '<br>');
+				}
+
 			}
 
-			for (var i = 0; i < found[layer].attributes.length; i++) {
-				var attribute = found[layer].attributes[i];
-				description = description.concat(
-					attribute.key.replace(/[A-Z]/g, ' $&') + ': ' +
-					attribute.value.replace('_', ' ') + '<br>');
-			}
+			return description.toLowerCase();
+		} else {
+			return this.options.onCreateFeatureDescription(found);
 		}
-
-		return description.toLowerCase();;
 	},
 
 	pixToLatLng: function (tileKey, point) {

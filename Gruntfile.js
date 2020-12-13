@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		browserify: {
 			control: {
-				src: ['src/TileLayer.XServer.js', 'src/TileLayer.XServer07.js', 'src/XServer.AutoAttribution.js'],
+				src: ['src/TileLayer.XServer.js', 'src/TileLayer.XServer07.js', 'src/XServer.AutoAttribution.js', 'src/GDF.TimeDomain.js'],
 				dest: 'dist/leaflet-xserver-src.js',
 				options: {
 					transform: [

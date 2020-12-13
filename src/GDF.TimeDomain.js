@@ -265,11 +265,11 @@ var GDFTimeDomainParser = function() {
             var text = [];
 
             if(null !== date.year && null !== date.month && null !== date.dayofmonth) {
-                text.push('Ab ' + date.dayofmonth + '.' + format2Dec(date.month) + '.' + date.year);
+                text.push('Ab ' + __format2Dec(date.dayofmonth) + '.' + format2Dec(date.month) + '.' + date.year);
             } else if(null !== date.year && null !== date.month) {
                 text.push('Im ' + date.month + '. Monat im Jahr ' + date.year);
             } else if(null !== date.month && null !== date.dayofmonth) {
-                text.push('am ' + date.dayofmonth + '.' + date.month + '.');
+                text.push('am ' + __format2Dec(date.dayofmonth) + '.' + date.month + '.');
             } else if(null !== date.year && null !== date.dayofmonth) {
                 text.push('Im Jahr ' + date.month + '.');
             }

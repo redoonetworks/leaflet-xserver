@@ -164,6 +164,96 @@
                                     description.push('Gilt im Zeitraum: ' + instance.getString(attribute.value));
 
                                     break;
+                                case 'absoluteSpeed':
+                                    if(attribute.value == '0') {
+                                        description.push('Vollsperrung');
+                                    } else {
+                                        description.push('Maximalgeschwindigkeit: ' + attribute.value + ' km/h');
+                                    }
+                                    break;
+                                case 'length':
+                                    description.push('Länge: ' + attribute.value + ' m');
+                                    break;
+                                case 'category':
+                                    switch(+attribute.value) {
+                                        case 10:
+                                        case 20:
+                                        case 30:
+                                            description.push('Ursache: Verkehrsstau');
+                                            break;
+                                        case 41:
+                                            description.push('Ursache: Wartezeit');
+                                            break;
+                                        case 42:
+                                            description.push('Ursache: Wartezeit für LKW');
+                                            break;
+                                        case 51:
+                                            description.push('Ursache: Straße blockiert');
+                                            break;
+                                        case 52:
+                                            description.push('Ursache: Kreuzung blockiert');
+                                            break;
+                                        case 53:
+                                            description.push('Ursache: Straße für LKW blockiert');
+                                            break;
+                                        case 61:
+                                            description.push('Ursache: Spur gesperrt');
+                                            break;
+                                        case 62:
+                                            description.push('Ursache: Behinderung im Verkehr');
+                                            break;
+                                        case 71:
+                                            description.push('Ursache: Fahrzeug brennt');
+                                            break;
+                                        case 72:
+                                            description.push('Ursache: Unfall');
+                                            break;
+                                        case 80:
+                                            description.push('Ursache: Gefahr');
+                                            break;
+                                        case 91:
+                                            description.push('Ursache: Bahnübergang');
+                                            break;
+                                        case 92:
+                                            description.push('Ursache: Signalanlage defekt');
+                                            break;
+                                        case 101:
+                                            description.push('Ursache: Eisglätte');
+                                            break;
+                                        case 102:
+                                        case 141:
+                                            description.push('Ursache: Starker Schneefall');
+                                            break;
+                                        case 103:
+                                            description.push('Ursache: Eingeschränkte Sicht');
+                                            break;
+                                        case 104:
+                                        case 142:
+                                            description.push('Ursache: Hagel');
+                                            break;
+                                        case 105:
+                                            description.push('Ursache: Starker Wind');
+                                            break;
+                                        case 106:
+                                            description.push('Ursache: Wetter');
+                                            break;
+                                        case 110:
+                                            description.push('Ursache: Baustelle');
+                                            break;
+                                        case 144:
+                                            description.push('Ursache: Wettervorhersage');
+                                            break;
+                                    }
+                                    break;
+                                case 'startX':
+                                case 'startY':
+                                case 'incidentId':
+                                case 'message.text':
+                                case 'message.language':
+                                    break;
+                                case 'delay':
+                                    description.push('Verzögerung: ' + Math.round(attribute.value / 60) + ' Minuten');
+                                    break;
                                 case 'opening':
                                     if(attribute.value == "0") {
                                         description.push('Segment gesperrt');

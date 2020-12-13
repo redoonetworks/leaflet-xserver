@@ -324,7 +324,7 @@ var GDFTimeDomainParser = function() {
                 text.push(date.year + ' Jahr' + (date.year > 1 ? 'n':''));
             }
             if (null !== date.month) {
-                text.push(date.month + ' Monat' + (date.month > 1 ? 'n':''));
+                text.push(date.month + ' Monat' + (date.month > 1 ? 'e':''));
             }
             if (null !== date.week) {
                 text.push(date.week + ' Woche' + (date.week > 1 ? 'n':''));

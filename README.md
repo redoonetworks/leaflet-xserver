@@ -53,9 +53,9 @@ var interactiveTileLayer = L.tileLayer.xserver(
 ```
 
 #### custom feature description
-[Demo](https://ptv-logistics.github.io/xserverjs/boilerplate/Leaflet-Clickable.1.0.html)
+[Demo](customized.html)
 
-The easiest way to add a clickable layer is to use class `L.TileLayer.XServer`, append a clickable xServer-Layer (e.g. `PTV_TruckAttributes`) to the profile and set the `&contentType=JSON` parameter. The icons of the layer can now be clicked to display the object information. The options are the same as for `L.TileLayer`
+The clickable features on the map are not human readable. To get a readable version, you can define a generator function **onCreateFeatureDescription** to the TileLayer, which will be called with clicked layer and should return the description.
 
 ```javascript
 var map = L.map('map').setView(new L.LatLng(49.01405, 8.4044), 14);
@@ -106,6 +106,11 @@ var interactiveTileLayer = L.tileLayer.xserver(
                                     description.push('Gilt für Fußgänger');
                                     break;
                             }
+                            break;
+                        case 'timeDomain':
+                            var instance = new GDFTimeDomainParser();
+                            description.push('Gilt im Zeitraum: ' + instance.getString(attribute.value));
+
                             break;
                         case 'maxHeight':
                             description.push('Maximalhöhe: ' + (attribute.value/100) + ' m');
@@ -160,6 +165,10 @@ var interactiveTileLayer = L.tileLayer.xserver(
                             }
     
                             break;
+                        default:
+                            description.push(attribute.key.replace(/[A-Z]/g, ' $&') + ': ' +
+                                attribute.value.replace('_', ' '));
+                            
                     }
                 }
             }

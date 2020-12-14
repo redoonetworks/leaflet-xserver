@@ -161,7 +161,7 @@
                                     break;
                                 case 'timeDomain':
                                     var instance = new GDFTimeDomainParser();
-                                    description.push('Gilt im Zeitraum: ' + instance.getString(attribute.value));
+                                    description.push('Gilt im Zeitraum: <span title="' + attribute.value + '">' + instance.getString(attribute.value)) + '</span>';
 
                                     break;
                                 case 'absoluteSpeed':

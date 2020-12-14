@@ -88,6 +88,13 @@ var GDFTimeDomainParser = function() {
             ) {
                 return true;
             }
+            if(
+                startData.year !== null && startData.month !== null && startData.dayofweek !== null && startData.dayofweek.length == 0 &&
+                durationData.dayofmonth !== null &&
+                durationData.dayofmonth > 1
+            ) {
+                return true;
+            }
 
             return false;
         }
@@ -112,6 +119,35 @@ var GDFTimeDomainParser = function() {
 
                 return this.getStartString() + ' bis ' + format2Dec(endDate.getHours()) + ':' + format2Dec(endDate.getMinutes()) + " Uhr";
             }
+
+            if(
+                startData.year !== null && startData.month !== null && startData.dayofweek !== null && startData.dayofweek.length === 0 &&
+                durationData.dayofmonth !== null &&
+                durationData.dayofmonth > 1
+            ) {
+                var startDate = this.getStartDate();
+                var interval = (
+                    durationData.week * (7 * 86400) +
+                    durationData.dayofmonth * 86400 +
+                    durationData.hour * 3600 +
+                    durationData.minute * 60 +
+                    durationData.second
+                );
+                var endDate = new Date(startDate.getTime() + interval * 1000);
+                if(durationData.month !== null) {
+                    endDate.setMonth(endDate.getMonth() + durationData.month);
+                }
+                if(durationData.year !== null) {
+                    endDate.setFullYear(endDate.getFullYear() + durationData.year);
+                }
+
+                if(endDate.getHours() == 0 && endDate.getMinutes() == 0) {
+                    endDate = new Date(endDate.getTime() - 60000);
+                }
+
+                return this.getStartString() + ' bis ' + endDate.toLocaleString('de-DE') + ' Uhr';
+            }
+
 
             return '--ERROR--';
         }
@@ -170,6 +206,7 @@ var GDFTimeDomainParser = function() {
             if(this.isMainStructure === true) {
                 result = result.replace(new RegExp('[|# ]+$', 'g'), '');
                 result = result.replace(new RegExp('[|# ]{5,}', 'g'), '|##|');
+                result = result.replace(new RegExp('(\\d{2}:\\d{2}):\\d{2}', 'g'), '$1');
             }
 
             result = result.replace(/\|\#\#\|/g, splitChar);
@@ -265,11 +302,11 @@ var GDFTimeDomainParser = function() {
             var text = [];
 
             if(null !== date.year && null !== date.month && null !== date.dayofmonth) {
-                text.push('Ab ' + __format2Dec(date.dayofmonth) + '.' + format2Dec(date.month) + '.' + date.year);
+                text.push('Ab ' + format2Dec(date.dayofmonth) + '.' + format2Dec(date.month) + '.' + date.year);
             } else if(null !== date.year && null !== date.month) {
                 text.push('Im ' + date.month + '. Monat im Jahr ' + date.year);
             } else if(null !== date.month && null !== date.dayofmonth) {
-                text.push('am ' + __format2Dec(date.dayofmonth) + '.' + date.month + '.');
+                text.push('am ' + format2Dec(date.dayofmonth) + '.' + date.month + '.');
             } else if(null !== date.year && null !== date.dayofmonth) {
                 text.push('Im Jahr ' + date.month + '.');
             }

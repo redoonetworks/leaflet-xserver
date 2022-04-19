@@ -42,8 +42,8 @@
     "superagent": "^5.1.0"
   },
   "devDependencies": {
-    "browserify": "^13.1.0",
-    "browserify-shim": "^3.8.12",
+    "browserify": "^17.0.0",
+    "browserify-shim": "^3.8.14",
     "grunt": "^1.4.1",
     "grunt-browserify": "^6.0.0",
     "grunt-cli": "^1.2.0",

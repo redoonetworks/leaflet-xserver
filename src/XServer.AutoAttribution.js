@@ -63,7 +63,7 @@
 
 			var newCopyright = '&copy; ' + new Date().getFullYear() + ' ' +
 				((err || !resp || !resp.body || !resp.body.mapDescription || !resp.body.mapDescription.copyright) ?
-				'PTV AG' :
+				'PTV Group' :
 				matchCopyrights(resolvedUrl, resp.body.mapDescription.copyright));
 
 			layer.options.attribution = newCopyright;

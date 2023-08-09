@@ -25,10 +25,8 @@ L.TileLayer.XServer = L.TileLayer.extend({
 		L.TileLayer.prototype.onAdd.call(this, map);
 
 		if(!this.options.disableMouseEvents) {
-			var cont = map._container;
-
-			cont.addEventListener('mousemove', L.bind(this._onMouseMove, this), true);
-			cont.addEventListener('mousedown', L.bind(this._onMouseDown, this), true);
+			map._container.addEventListener('mousemove', L.bind(this._onMouseMove, this), true);
+			map._mapPane.addEventListener('mousedown', L.bind(this._onMouseDown, this), true);
 
 			map._mapPane.addEventListener('click', L.bind(this._onClick, this), true);
 			map.addEventListener('click', L.bind(this._onMapClick, this), false);
@@ -37,11 +35,9 @@ L.TileLayer.XServer = L.TileLayer.extend({
 
 	onRemove: function (map) {
 		if(!this.options.disableMouseEvents) {
-			var cont = map._container;
-
-			cont.removeEventListener('mousemove', L.bind(this._onMouseMove, this), true);
-			cont.removeEventListener('mousedown', L.bind(this._onMouseDown, this), true);
-
+			map._container.removeEventListener('mousemove', L.bind(this._onMouseMove, this), true);
+			map._mapPane.removeEventListener('mousedown', L.bind(this._onMouseDown, this), true);
+  
 			map._mapPane.removeEventListener('click', L.bind(this._onClick, this), true);
 			map.removeEventListener('click', L.bind(this._onMapClick, this), false);
 		}
@@ -81,7 +77,7 @@ L.TileLayer.XServer = L.TileLayer.extend({
 	},
 
 	_onMouseMove: function (e) {
-		if (!this._map || this._map.dragging._draggable._moving || this._map._animatingZoom) {
+		if (!this._map || (this._map.dragging._draggable && this._map.dragging._draggable._moving) || this._map._animatingZoom) {
 			return;
 		}
 

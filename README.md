@@ -185,7 +185,7 @@ It's also possible to split the xMapServer map into separate Leaflet layers. Thi
 
 ```javascript
 var coordinate = L.latLng(49.01405, 8.4044); // KA
-var radius = 250; // m
+var radius = 500; // m
 
 var map = L.map('map').setView(coordinate, 14);
 
@@ -200,7 +200,7 @@ var basemapLayer = L.tileLayer(
         pane: 'tilePane'
     }).addTo(map);
 
-var circle = L.circle(coordinate, radius / Math.cos(coordinate.lng / 2 / Math.PI), {
+var circle = L.circle(coordinate, radius, {
     color: 'red',
     fillColor: 'orange',
     fillOpacity: 0.5,
